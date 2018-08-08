@@ -1,2 +1,2 @@
 # zf3-mailgun
-multithreaded mailgin api client for zend framework 3
+Multithreaded mailgun api client for zend framework 3

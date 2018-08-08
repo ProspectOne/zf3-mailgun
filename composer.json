@@ -1,0 +1,43 @@
+{
+    "name": "prospect-one/zf3-mailgun",
+    "description": "multithreaded zf3 mailgun module",
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "zf3",
+        "ratchet"
+    ],
+    "homepage": "http://framework.zend.com/",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/ProspectOne/UserModule"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/ProspectOne/ZF2-PHP-WebSocket-Server-Factory.git"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "zendframework/zend-component-installer": "^1.0 || ^0.5 || ^1.0.0-dev@dev",
+        "zendframework/zend-mvc": "^3.0.1",
+        "zendframework/zend-mvc-console": "^1.1",
+        "cboden/ratchet": "^0.4.1",
+        "guzzlehttp/guzzle": "^6.3",
+        "zendframework/zend-servicemanager": "^3.3"
+},
+    "require-dev": {
+        "zendframework/zend-test": "^3.0.1",
+        "phpunit/phpunit": "^7"
+    },
+    "extra": [],
+    "apcu-autoloader" : true,
+    "autoload": {
+        "psr-4": {
+            "ProspectOne\\Zf3Ratchet\\": "src/"
+        }
+    }
+}
