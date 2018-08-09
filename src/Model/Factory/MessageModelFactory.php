@@ -1,16 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ikova
- * Date: 08.08.2018
- * Time: 20:27
- */
 
 namespace ProspectOne\Zf3Mailgun\Model\Factory;
 
-
 use Interop\Container\ContainerInterface;
-use ProspectOne\Zf3Mailgun\Model\MessageModel;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
@@ -30,7 +22,7 @@ class MessageModelFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $messageModel = new MessageModel(
+        $messageModel = new $requestedName(
             $options['to'],
             $options['from'],
             $options['title'],
