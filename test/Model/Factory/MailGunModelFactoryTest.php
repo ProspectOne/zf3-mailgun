@@ -3,6 +3,7 @@
 namespace ProspectOne\Zf3Ratchet\Model\Factory;
 
 use Interop\Container\ContainerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use ProspectOne\Zf3Mailgun\Model\Factory\MailGunModelFactory;
 use ProspectOne\Zf3Mailgun\Model\MailGunModel;
@@ -14,11 +15,12 @@ use ProspectOne\Zf3Mailgun\Model\MailGunModel;
 class MailGunModelFactoryTest extends TestCase
 {
     const OPTIONS = [
-        "to" => "to",
-        "from" => "from",
-        "title" => "title",
-        "text" => "text",
-        "html" => "html",
+        'prospectone' => [
+            'zf3mailgun' => [
+                'application-url' => "url",
+                "api-key" => "api-key",
+            ],
+        ],
     ];
 
     /**
@@ -27,8 +29,10 @@ class MailGunModelFactoryTest extends TestCase
     public function invoke()
     {
         $factory = new MailGunModelFactory();
-        /** @var ContainerInterface $container */
+        /** @var ContainerInterface|MockObject $container */
         $container = $this->getMockBuilder(ContainerInterface::class)->disableOriginalConstructor()->getMockForAbstractClass();
+        $container->expects($this->once())->method("get")->with($this->equalTo("Config"))->willReturn(self::OPTIONS);
+
         $model = $factory($container, MailGunModel::class, self::OPTIONS);
         $this->assertInstanceOf(MailGunModel::class, $model);
     }
