@@ -120,14 +120,15 @@ class MailGunModel
      */
     public function sendBatch(SplDoublyLinkedList $messages, $concurrency)
     {
-        $errors = [];
+        $status = [];
         $promises = $this->generateMessages($messages);
         $eachPromise = new EachPromise($promises, [
             'concurency' => $concurrency,
-            'fulfilled' => function (ResponseInterface $response, $index) {
+            'fulfilled' => function (ResponseInterface $response, $index) use (&$status) {
+                $status[$index] = 1;
             },
             'rejected' => function (RequestException $reason, $index) use (&$errors, $messages) {
-                $errors[] = sprintf(self::ERROR_MESSAGE, $messages[$index]->getTo(), $reason->getMessage());
+                $status[$index] = 0;
             }
         ]);
         $eachPromise->promise()->wait();
