@@ -20,7 +20,7 @@ class MessageModelFactory implements FactoryInterface
      * @param  null|array $options
      * @return object
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(?ContainerInterface $container, $requestedName, array $options = null)
     {
         $messageModel = new $requestedName(
             $options['to'],

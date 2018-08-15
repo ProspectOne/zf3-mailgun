@@ -8,7 +8,7 @@ use GuzzleHttp\Promise\EachPromise;
 use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
-use SplDoublyLinkedList;
+use Iterator;
 
 /**
  * Class MailGunModel
@@ -118,7 +118,7 @@ class MailGunModel
      * @param $messages
      * @param $concurrency
      */
-    public function sendBatch(SplDoublyLinkedList $messages, $concurrency)
+    public function sendBatch(Iterator $messages, $concurrency)
     {
         $status = [];
         $promises = $this->generateMessages($messages);
@@ -127,10 +127,11 @@ class MailGunModel
             'fulfilled' => function (ResponseInterface $response, $index) use (&$status) {
                 $status[$index] = 1;
             },
-            'rejected' => function (RequestException $reason, $index) use (&$errors, $messages) {
+            'rejected' => function (RequestException $reason, $index) use (&$status) {
                 $status[$index] = 0;
             }
         ]);
         $eachPromise->promise()->wait();
+        return $status;
     }
 }
