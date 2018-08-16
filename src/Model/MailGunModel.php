@@ -108,7 +108,7 @@ class MailGunModel
         /** @var MessageModel $message */
         foreach($messages as $message) {
             yield $this->getClient()->postAsync($this->getUri(), [
-                "auth" => [$this->getAuth()],
+                "auth" => ["api", $this->getAuth()],
                 "form_params" => $message->toArray(),
             ]);
         }
