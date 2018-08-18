@@ -54,7 +54,7 @@ class MailGunModel
     }
 
     /**
-     * @param ыекштп $uri
+     * @param string $uri
      * @return MailGunModel
      */
     public function setUri($uri)
