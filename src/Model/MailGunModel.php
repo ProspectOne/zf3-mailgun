@@ -54,12 +54,12 @@ class MailGunModel
     }
 
     /**
-     * @param string $uri
+     * @param ыекштп $uri
      * @return MailGunModel
      */
     public function setUri($uri)
     {
-        $this->uri = $uri;
+        $this->uri = new Uri($uri);
         return $this;
     }
 
