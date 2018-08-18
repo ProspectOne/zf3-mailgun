@@ -13,6 +13,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  */
 class MailGunModelFactory implements FactoryInterface
 {
+    const URL = 'https://api.mailgun.net/v3/%1$s/messages';
 
     /**
      * Create an object
@@ -29,5 +30,14 @@ class MailGunModelFactory implements FactoryInterface
         $apiKey = $config['prospectone']['zf3mailgun']['api-key'];
         $mailGunModel = new MailGunModel(new Client(), $uri, $apiKey);
         return $mailGunModel;
+    }
+
+    /**
+     * @param string $domain
+     * @return string
+     */
+    public static function getUrlByDomain(string $domain)
+    {
+        return sprintf(self::URL, $domain);
     }
 }
