@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Interop\Container\ContainerInterface;
 use ProspectOne\Zf3Mailgun\Model\MailGunModel;
 use Zend\ServiceManager\Factory\FactoryInterface;
+use BadMethodCallException;
 
 /**
  * Class MailGunModelFactory
@@ -38,6 +39,9 @@ class MailGunModelFactory implements FactoryInterface
      */
     public static function getUrlByDomain(string $domain)
     {
+        if (empty($domain)) {
+            throw new BadMethodCallException("Domain can't be empty");
+        }
         return sprintf(self::URL, $domain);
     }
 }
